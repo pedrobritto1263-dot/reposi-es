@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema de Bioimpedncia - DI em JavaScript</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>⚡ Sistema de Bioimpedncia</h1>
+            <p class="subtitle">Anlise de Composio Corporal com Injeo de Dependncia</p>
+        </header>
+
+        <main>
+            <!-- Formulrio de Dados -->
+            <section class="card">
+                <h2>📋 Dados do Paciente</h2>
+                <form id="patientForm">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="nome">Nome:</label>
+                            <input type="text" id="nome" name="nome" required placeholder="Nome completo">
+                        </div>
+                        <div class="form-group">
+                            <label for="idade">Idade:</label>
+                            <input type="number" id="idade" name="idade" required placeholder="Anos" min="5" max="100">
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="genero">Gnero:</label>
+                            <select id="genero" name="genero" required>
+                                <option value="">Selecione</option>
+                                <option value="masculino">Masculino</option>
+                                <option value="feminino">Feminino</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="altura">Altura (cm):</label>
+                            <input type="number" id="altura" name="altura" required placeholder="Ex: 175" min="100" max="250">
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="peso">Peso (kg):</label>
+                            <input type="number" id="peso" name="peso" required placeholder="Ex: 75.5" step="0.1" min="30" max="300">
+                        </div>
+                        <div class="form-group">
+                            <label for="impedancia">Impedncia (Ω):</label>
+                            <input type="number" id="impedancia" name="impedancia" required placeholder="Ex: 500" step="1" min="200" max="1500">
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn-primary">Calcular Bioimpedncia</button>
+                </form>
+            </section>
+
+            <!-- Resultados -->
+            <section class="card" id="resultsCard" style="display: none;">
+                <h2>📊 Resultados da Anlise</h2>
+                <div class="results-grid">
+                    <div class="result-item highlight">
+                        <div class="result-icon">💧</div>
+                        <div class="result-content">
+                            <span class="result-label">Massa Magra</span>
+                            <span class="result-value" id="massaMagra">-- kg</span>
+                            <span class="result-percent" id="massaMagraPercent">--%</span>
+                        </div>
+                    </div>
+
+                    <div class="result-item highlight">
+                        <div class="result-icon">🔥</div>
+                        <div class="result-content">
+                            <span class="result-label">Massa Gorda</span>
+                            <span class="result-value" id="massaGorda">-- kg</span>
+                            <span class="result-percent" id="massaGordaPercent">--%</span>
+                        </div>
+                    </div>
+
+                    <div class="result-item">
+                        <div class="result-icon">📏</div>
+                        <div class="result-content">
+                            <span class="result-label">IMC</span>
+                            <span class="result-value" id="imc">--</span>
+                            <span class="result-classification" id="imcClass">--</span>
+                        </div>
+                    </div>
+
+                    <div class="result-item">
+                        <div class="result-icon">⚡</div>
+                        <div class="result-content">
+                            <span class="result-label">Taxa Metablica Basal</span>
+                            <span class="result-value" id="tmb">-- kcal</span>
+                            <span class="result-detail">por dia</span>
+                        </div>
+                    </div>
+
+                    <div class="result-item">
+                        <div class="result-icon">💧</div>
+                        <div class="result-content">
+                            <span class="result-label">gua Corporal</span>
+                            <span class="result-value" id="agua">-- kg</span>
+                            <span class="result-percent" id="aguaPercent">--%</span>
+                        </div>
+                    </div>
+
+                    <div class="result-item">
+                        <div class="result-icon">🦴</div>
+                        <div class="result-content">
+                            <span class="result-label">Massa ssea</span>
+                            <span class="result-value" id="massaOssea">-- kg</span>
+                            <span class="result-detail">estimada</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="action-buttons">
+                    <button class="btn-secondary" onclick="app.controller.limparResultados()">
+                        🗑️ Limpar Resultados
+                    </button>
+                    <button class="btn-primary" onclick="app.controller.salvarAvaliacao()">
+                        💾 Salvar Avaliao
+                    </button>
+                </div>
+            </section>
+
+            <!-- Histrico de Avaliaes -->
+            <section class="card">
+                <h2>📚 Histrico de Avaliaes</h2>
+                <div id="historyList" class="history-list">
+                    <!-- Avaliaes salvas sero inseridas aqui -->
+                </div>
+            </section>
+
+            <!-- Log de Operaes -->
+            <section class="card">
+                <h2>🔬 Log de Operaes</h2>
+                <div id="logList" class="log-list">
+                    <!-- Logs sero inseridos aqui -->
+                </div>
+            </section>
+        </main>
+
+        <footer>
+            <p>Desenvolvido por Pedro Britto &copy; 2026 | Sistema de Bioimpedncia com DI</p>
+        </footer>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
